@@ -4,18 +4,18 @@
  */
 package com.yangqiang;
 
-import com.yangqiang.game.config.annotation.ConfigFileScan;
-import com.yangqiang.game.config.annotation.PackageScan;
-import com.yangqiang.game.config.beans.ItemConfig;
-import com.yangqiang.game.config.excel.ExcelConfigDataManager;
+import com.yangqiang.config.annotation.ConfigFileScan;
+import com.yangqiang.config.annotation.PackageScan;
+import com.yangqiang.config.beans.ItemConfig;
+import com.yangqiang.config.excel.ExcelConfigDataManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author YangQiang
  */
-@ConfigFileScan(path = "E:\\workspace\\game\\game-config\\src\\test\\resources", suffix = ".xlsx")
-@PackageScan("com.yangqiang.game.config.beans")
+@ConfigFileScan(path = "E:\\github.com\\QiangYoung\\game-base\\game-config\\src\\test\\resources", suffix = ".xlsx")
+@PackageScan("com.yangqiang.config.beans")
 public class Test {
     private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
 
@@ -25,7 +25,7 @@ public class Test {
 
         // dataManager.setConfigFileSuffix(".xlsx");
         // 使用注解的方式需要设置配置类的包名
-        // dataManager.setConfigPackage("com.yangqiang.game.config.beans");
+        // dataManager.setConfigPackage("com.yangqiang.config.beans");
 
         // 设置excel文件的路径  这里直接使用classpath路径
         // dataManager.setConfigFileDir(Test.class.getClassLoader().getResource("").getPath());

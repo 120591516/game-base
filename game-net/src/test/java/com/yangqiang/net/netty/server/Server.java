@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Server implements MessageListener<MessageLite>, SessionListener<NettySession> {
-    public static final IPool<MessageLite, MessageLite> inIPool = new ProtobufMessagePool();
+    public static final IPool<MessageLite, MessageLite> inPool = new ProtobufMessagePool();
     public static final IPool<Class<? extends MessageCommand>, MessageCommand> handlerPool = new MessageHandlerPool();
 
     static {
-        inIPool.register(1, ReqLoginMessage.getDefaultInstance());
+        inPool.register(1, ReqLoginMessage.getDefaultInstance());
         handlerPool.register(1, ReqLoginHandler.class);
     }
 
@@ -41,7 +41,7 @@ public class Server implements MessageListener<MessageLite>, SessionListener<Net
         NettyServerBuilder builder = NettyServerBuilder.Builder();
         builder.port(30000).bossGroupCount(1).workGroupCount(4);
         builder.handler("frameDecoder", () -> new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
-        builder.handler("protobufDecoder", () -> new DefaultProtoBufDecoder(inIPool));
+        builder.handler("protobufDecoder", () -> new DefaultProtoBufDecoder(inPool));
         builder.handler("frameEncoder", () -> new LengthFieldPrepender(4));
         builder.handler("protobufEncoder", () -> new DefaultProtoBufEncoder(outIPool));
         NettyMessageHandler messageHandler = new NettyMessageHandler(server, server);
@@ -52,7 +52,7 @@ public class Server implements MessageListener<MessageLite>, SessionListener<Net
 
     @Override
     public void onMessage(Session session, MessageLite message) {
-        int messageId = inIPool.getId(message);
+        int messageId = inPool.getId(message);
         MessageCommand messageCommand = handlerPool.get(messageId);
         messageCommand.setSession(session);
         if (messageCommand != null) {
