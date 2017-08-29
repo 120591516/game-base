@@ -4,20 +4,14 @@
  */
 package com.yangqiang.queue;
 
-import com.yangqiang.game.SimpleThreadFactory;
-import com.yangqiang.game.util.CodeExecTime;
 import com.yangqiang.queue.impl.CallableTask;
 import com.yangqiang.queue.impl.Task;
 import com.yangqiang.queue.impl.UnlockedWorkQueue;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 
 /**
  * 任务队列服务
@@ -84,17 +78,5 @@ public class WorkQueueService implements IWorkQueueService {
      */
     public CompletableFuture<Void> submit(Work work) {
         return submitTask(new Task(this, work, new CompletableFuture<Void>()));
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        WorkQueueService service = new WorkQueueService(1, "测试任务队列服务", Executors.newFixedThreadPool(1, new SimpleThreadFactory("测试线程")));
-
-        for (int i = 0; i < 1000; i++) {
-            final int index = i;
-            // System.out.println(index);
-            // service.submit(() -> System.out.println(index));
-            service.submit(() -> System.out.println("000000.....{}......" + index));
-            // Thread.sleep(1L);
-        }
     }
 }
