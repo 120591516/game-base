@@ -39,25 +39,7 @@ public abstract class AbstractQueueTask implements IQueueTask {
         } catch (Throwable cause) {
             future.completeExceptionally(cause);
         } finally {
-            if (workQueueService == null) {
-                log.error("任务队列服务不存在null");
-                return;
-            }
-            IWorkQueue<Command> workQueue = workQueueService.getWorkQueue();
-            if (workQueue == null) {
-                log.error("[{}:{}]任务队列不存在null", workQueueService.getId(), workQueueService.getName());
-                return;
-            }
-            synchronized (workQueue) {
-                Command nextCommand = workQueue.poll();
-                if (nextCommand == null) {
-                    // 执行完毕后队列中没有命令了设置为执行完毕标识
-                    workQueue.setProcessing(false);
-                } else {
-                    // 如果队列中还有其他命令则继续执行下一个命令
-                    workQueueService.getExecutor().execute(nextCommand);
-                }
-            }
+            workQueueService.executeCommand();
         }
     }
 }

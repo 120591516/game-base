@@ -16,4 +16,5 @@ public interface IWorkQueueService {
     String getName();
     Executor getExecutor();
     IWorkQueue<Command> getWorkQueue();
+    void executeCommand();
 }

@@ -38,6 +38,23 @@ public class WorkQueueService implements IWorkQueueService {
         this.executor = executor;
     }
 
+    /**
+     * 执行队列中的命令
+     */
+    public void executeCommand() {
+        synchronized (workQueue) {
+            Command command = workQueue.poll();
+            if (command == null) {
+                // 执行完毕后队列中没有命令了设置为执行完毕标识
+                workQueue.setProcessing(false);
+                return;
+            }
+            workQueue.setProcessing(true);
+            // 如果队列中还有其他命令则继续执行下一个命令
+            getExecutor().execute(command);
+        }
+    }
+
     private CompletableFuture submitTask(IQueueTask task) {
         synchronized (workQueue) {
             int workSize = workQueue.size();
@@ -51,10 +68,9 @@ public class WorkQueueService implements IWorkQueueService {
                 return null;
             }
 
+            // 队列如果不在执行中则执行命令
             if (!workQueue.isProcessing()) {
-                //如果该队列中的所有task都已经执行完毕，那么重新启动该队列的执行
-                workQueue.setProcessing(true);
-                getExecutor().execute(workQueue.poll());
+                executeCommand();
             }
             return task.getFuture();
         }
