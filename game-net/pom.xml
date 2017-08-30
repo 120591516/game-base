@@ -24,9 +24,15 @@
             <artifactId>game-api</artifactId>
             <version>${game.api.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+            <optional>true</optional>
+        </dependency>-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-handler</artifactId>
             <version>${netty.version}</version>
             <optional>true</optional>
         </dependency>

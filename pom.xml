@@ -12,7 +12,7 @@
         <module>game-config</module>
         <module>game-net</module>
         <module>game-api</module>
-        <module>game-queue</module>
+        <module>game-work</module>
     </modules>
 
     <properties>

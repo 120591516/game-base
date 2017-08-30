@@ -9,10 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>game-queue</artifactId>
+    <artifactId>game-work</artifactId>
 
     <properties>
         <game.api.version>1.0</game.api.version>
+        <netty.version>4.1.13.Final</netty.version>
     </properties>
 
     <dependencies>
@@ -21,6 +22,13 @@
             <artifactId>game-api</artifactId>
             <version>${game.api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-common</artifactId>
+            <version>${netty.version}</version>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
 </project>

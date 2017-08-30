@@ -2,10 +2,10 @@
  * 创建日期:  2017年08月29日 18:15
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.queue.impl;
+package com.yangqiang.work.queue.impl;
 
-import com.yangqiang.queue.IWorkQueueService;
-import com.yangqiang.queue.Work;
+import com.yangqiang.work.queue.IWorkQueueService;
+import com.yangqiang.work.Work;
 
 import java.util.concurrent.CompletableFuture;
 

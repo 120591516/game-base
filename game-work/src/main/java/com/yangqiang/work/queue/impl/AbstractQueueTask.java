@@ -2,12 +2,11 @@
  * 创建日期:  2017年08月29日 13:14
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.queue.impl;
+package com.yangqiang.work.queue.impl;
 
-import com.yangqiang.queue.Command;
-import com.yangqiang.queue.IQueueTask;
-import com.yangqiang.queue.IWorkQueue;
-import com.yangqiang.queue.IWorkQueueService;
+import com.yangqiang.work.Command;
+import com.yangqiang.work.queue.IQueueTask;
+import com.yangqiang.work.queue.IWorkQueueService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

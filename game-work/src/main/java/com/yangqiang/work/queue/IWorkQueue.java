@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月28日 15:39
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.queue;
+package com.yangqiang.work.queue;
 
 /**
  * 任务队列接口

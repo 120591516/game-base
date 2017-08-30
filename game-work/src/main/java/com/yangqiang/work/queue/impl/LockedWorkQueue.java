@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月28日 15:43
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.queue.impl;
+package com.yangqiang.work.queue.impl;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.locks.Lock;
