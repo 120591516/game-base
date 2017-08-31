@@ -4,6 +4,8 @@
  */
 package com.yangqiang.work.timer;
 
+import io.netty.util.Timeout;
+
 /**
  * 可定时的接口
  *
@@ -16,5 +18,5 @@ public interface IScheduled {
 
     int getStep();
 
-    boolean cancle();
+    Timeout getTimeout();
 }

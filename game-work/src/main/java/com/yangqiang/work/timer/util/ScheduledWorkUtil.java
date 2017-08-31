@@ -22,11 +22,10 @@ import java.util.concurrent.TimeUnit;
  *
  * @author 杨 强
  */
-@Slf4j
 public class ScheduledWorkUtil {
     public static class TimerHolder {
         private static final int TIMER_DURATION = 10;
-        private static final Timer TIMER = new HashedWheelTimer(new SimpleThreadFactory("通用定时器"), TIMER_DURATION, TimeUnit.MILLISECONDS, 512);
+        private static final Timer TIMER = new HashedWheelTimer(new SimpleThreadFactory("默认定时器"), TIMER_DURATION, TimeUnit.MILLISECONDS, 512);
     }
 
     /**
@@ -44,14 +43,14 @@ public class ScheduledWorkUtil {
      * @param work
      * @param timer
      */
-    private static void schedule(ScheduledWork work, Timer timer) {
+    private static Timeout schedule(ScheduledWork work, Timer timer) {
         work = Objects.requireNonNull(work);
         timer = Objects.requireNonNull(timer);
-        timer.newTimeout(work, work.getInitialDelay(), TimeUnit.MILLISECONDS);
+        return timer.newTimeout(work, work.getInitialDelay(), TimeUnit.MILLISECONDS);
     }
 
     /**
-     * 使用通用的定时器定时执行指定的指令
+     * 使用默认的定时器定时执行指定的指令
      *
      * @param loop
      * @param initialDelay
@@ -81,7 +80,7 @@ public class ScheduledWorkUtil {
                 command.action();
             }
         };
-        schedule(scheduledWork, timer);
+        scheduledWork.setTimeout(schedule(scheduledWork, timer));
         return scheduledWork;
     }
 }

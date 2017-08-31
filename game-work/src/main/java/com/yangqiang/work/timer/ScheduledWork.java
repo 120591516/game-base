@@ -20,7 +20,7 @@ public abstract class ScheduledWork implements Work, TimerTask, IScheduled {
     private int loop;
     private int initialDelay;
     private int step;
-    private boolean cancle;
+    private Timeout timeout;
 
     public ScheduledWork(int timerDuration) {
         this(timerDuration, 1, 0, 0);
@@ -38,27 +38,18 @@ public abstract class ScheduledWork implements Work, TimerTask, IScheduled {
     }
 
     @Override
-    public boolean cancle() {
-        setCancle(true);
-        return true;
-    }
-
-    @Override
     public void run(Timeout timeout) throws Exception {
-        if (cancle) {
-            return;
-        }
         try {
             action();
         } finally {
             // 无限循环的定时任务
             if (loop < 0) {
-                timeout.timer().newTimeout(this, step - timerDuration, TimeUnit.MILLISECONDS);
+                this.timeout = timeout.timer().newTimeout(this, step - timerDuration, TimeUnit.MILLISECONDS);
             } else if (loop == 0) { // 只执行1次的
             } else { //多次执行的
                 loop--;
                 if (loop > 0) { //还有剩余次数
-                    timeout.timer().newTimeout(this, step - timerDuration, TimeUnit.MILLISECONDS);
+                    this.timeout = timeout.timer().newTimeout(this, step - timerDuration, TimeUnit.MILLISECONDS);
                 }
             }
         }
