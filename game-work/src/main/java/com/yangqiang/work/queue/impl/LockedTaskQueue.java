@@ -13,14 +13,14 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author 杨 强
  */
-public class LockedWorkQueue<V> extends WorkQueue<V> {
+public class LockedTaskQueue<V> extends TaskQueue<V> {
     private final Lock lock = new ReentrantLock();
 
-    public LockedWorkQueue() {
+    public LockedTaskQueue() {
         super(new ArrayDeque<>());
     }
 
-    public LockedWorkQueue(int size) {
+    public LockedTaskQueue(int size) {
         super(new ArrayDeque<>(size));
     }
 

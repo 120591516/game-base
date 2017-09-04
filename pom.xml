@@ -9,10 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>game-all</module>
         <module>game-config</module>
         <module>game-net</module>
         <module>game-api</module>
         <module>game-work</module>
+        <module>game-data</module>
     </modules>
 
     <properties>
@@ -53,27 +55,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <!-- 默认读取该编码 -->
-                    <!-- <encoding>${project.build.sourceEncoding}</encoding> -->
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${project.java.version}</source>
                     <target>${project.java.version}</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>aggregate-jar</goal>
-                        </goals>
-                        <configuration>
-                            <!-- 默认读取该编码 -->
-                            <!-- <encoding>${project.build.sourceEncoding}</encoding> -->
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,8 +70,6 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <!-- 默认读取该编码 -->
-                            <!-- <encoding>${project.build.sourceEncoding}</encoding> -->
                             <includePom>true</includePom>
                         </configuration>
                     </execution>

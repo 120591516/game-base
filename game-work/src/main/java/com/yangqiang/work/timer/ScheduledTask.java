@@ -4,7 +4,7 @@
  */
 package com.yangqiang.work.timer;
 
-import com.yangqiang.work.Work;
+import com.yangqiang.work.Command;
 import io.netty.util.Timeout;
 import io.netty.util.TimerTask;
 import lombok.Data;
@@ -12,25 +12,27 @@ import lombok.Data;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 定时的任务
+ *
  * @author 杨 强
  */
 @Data
-public abstract class ScheduledWork implements Work, TimerTask, IScheduled {
+public abstract class ScheduledTask implements Command, TimerTask, IScheduled {
     private int timerDuration;
     private int loop;
     private int initialDelay;
     private int step;
     private Timeout timeout;
 
-    public ScheduledWork(int timerDuration) {
+    public ScheduledTask(int timerDuration) {
         this(timerDuration, 1, 0, 0);
     }
 
-    public ScheduledWork(int timerDuration, int loop, int step) {
+    public ScheduledTask(int timerDuration, int loop, int step) {
         this(timerDuration, loop, 0, step);
     }
 
-    public ScheduledWork(int timerDuration, int loop, int initialDelay, int step) {
+    public ScheduledTask(int timerDuration, int loop, int initialDelay, int step) {
         this.timerDuration = timerDuration;
         this.loop = loop;
         this.initialDelay = initialDelay;
@@ -40,8 +42,6 @@ public abstract class ScheduledWork implements Work, TimerTask, IScheduled {
     @Override
     public void run(Timeout timeout) throws Exception {
         try {
-            action();
-        } finally {
             // 无限循环的定时任务
             if (loop < 0) {
                 this.timeout = timeout.timer().newTimeout(this, step - timerDuration, TimeUnit.MILLISECONDS);
@@ -52,6 +52,8 @@ public abstract class ScheduledWork implements Work, TimerTask, IScheduled {
                     this.timeout = timeout.timer().newTimeout(this, step - timerDuration, TimeUnit.MILLISECONDS);
                 }
             }
+        } finally {
+            action();
         }
 
     }

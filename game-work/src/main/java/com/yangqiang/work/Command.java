@@ -5,6 +5,8 @@
 package com.yangqiang.work;
 
 /**
+ * 普通指令
+ *
  * @author 杨 强
  */
 @FunctionalInterface

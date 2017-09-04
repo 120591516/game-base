@@ -4,7 +4,7 @@
  */
 package com.yangqiang.work.queue.impl;
 
-import com.yangqiang.work.queue.IWorkQueue;
+import com.yangqiang.work.queue.ITaskQueue;
 
 import java.util.Queue;
 
@@ -13,11 +13,11 @@ import java.util.Queue;
  *
  * @author 杨 强
  */
-public class WorkQueue<V> implements IWorkQueue<V> {
+public class TaskQueue<V> implements ITaskQueue<V> {
     private final Queue<V> queue;
     private volatile boolean processing = false;
 
-    public WorkQueue(Queue<V> queue) {
+    public TaskQueue(Queue<V> queue) {
         this.queue = queue;
     }
 

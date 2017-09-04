@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 public class SimpleThreadFactory implements ThreadFactory {
-    private static final AtomicInteger INDEX = new AtomicInteger(0);
     private String name;
 
     public SimpleThreadFactory(String name) {
@@ -24,10 +23,8 @@ public class SimpleThreadFactory implements ThreadFactory {
     }
 
     @Override
-    public Thread newThread(Runnable r) {
-        int currentIndex = INDEX.incrementAndGet();
-        String threadName = name + "-" + currentIndex;
-        log.info("创建线程:{}", threadName);
-        return new Thread(r, threadName);
+    public Thread newThread(Runnable runnable) {
+        log.info("创建线程:{}", name);
+        return new Thread(runnable, name);
     }
 }

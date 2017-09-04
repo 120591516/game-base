@@ -7,7 +7,7 @@ package com.yangqiang.work.timer.util;
 import com.yangqiang.game.SimpleThreadFactory;
 import com.yangqiang.work.Command;
 import com.yangqiang.work.timer.IScheduled;
-import com.yangqiang.work.timer.ScheduledWork;
+import com.yangqiang.work.timer.ScheduledTask;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
 import io.netty.util.Timer;
@@ -22,7 +22,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author 杨 强
  */
-public class ScheduledWorkUtil {
+@Slf4j
+public class ScheduledTaskUtil {
     public static class TimerHolder {
         private static final int TIMER_DURATION = 10;
         private static final Timer TIMER = new HashedWheelTimer(new SimpleThreadFactory("默认定时器"), TIMER_DURATION, TimeUnit.MILLISECONDS, 512);
@@ -40,13 +41,13 @@ public class ScheduledWorkUtil {
     /**
      * 使用指定的timer定时执行指定的定时任务
      *
-     * @param work
+     * @param task
      * @param timer
      */
-    private static Timeout schedule(ScheduledWork work, Timer timer) {
-        work = Objects.requireNonNull(work);
+    private static Timeout schedule(ScheduledTask task, Timer timer) {
+        task = Objects.requireNonNull(task);
         timer = Objects.requireNonNull(timer);
-        return timer.newTimeout(work, work.getInitialDelay(), TimeUnit.MILLISECONDS);
+        return timer.newTimeout(task, task.getInitialDelay(), TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -74,13 +75,25 @@ public class ScheduledWorkUtil {
      * @return
      */
     public static IScheduled schedule(int loop, int initialDelay, int step, Command command, int timerDuration, Timer timer) {
-        ScheduledWork scheduledWork = new ScheduledWork(timerDuration, loop, initialDelay, step) {
+        ScheduledTask scheduledTask = new ScheduledTask(timerDuration, loop, initialDelay, step) {
             @Override
             public void action() {
                 command.action();
             }
         };
-        scheduledWork.setTimeout(schedule(scheduledWork, timer));
-        return scheduledWork;
+        scheduledTask.setTimeout(schedule(scheduledTask, timer));
+        return scheduledTask;
+    }
+
+    public static void main(String[] args) {
+        for (int i = 1; i <= 100; i++) {
+            int index = i;
+            schedule(10, 0, 1000, new Command() {
+                @Override
+                public void action() {
+                    log.info("{}", index);
+                }
+            });
+        }
     }
 }

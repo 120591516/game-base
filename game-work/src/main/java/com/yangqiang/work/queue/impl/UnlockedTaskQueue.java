@@ -11,12 +11,12 @@ import java.util.ArrayDeque;
  *
  * @author 杨 强
  */
-public class UnlockedWorkQueue<V> extends WorkQueue<V> {
-    public UnlockedWorkQueue() {
+public class UnlockedTaskQueue<V> extends TaskQueue<V> {
+    public UnlockedTaskQueue() {
         super(new ArrayDeque<>());
     }
 
-    public UnlockedWorkQueue(int size) {
+    public UnlockedTaskQueue(int size) {
         super(new ArrayDeque<>(size));
     }
 }

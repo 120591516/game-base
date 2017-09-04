@@ -9,7 +9,7 @@ package com.yangqiang.work.queue;
  *
  * @author 杨 强
  */
-public interface IWorkQueue<V> {
+public interface ITaskQueue<V> {
     /**
      * 获取一个命令
      *

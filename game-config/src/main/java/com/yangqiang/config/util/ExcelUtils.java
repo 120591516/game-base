@@ -126,11 +126,12 @@ public class ExcelUtils {
 
     /**
      * 读取excel页 结果以Map封装, key是行号, 每行数据以Map封装(key是列数,value是字符串值)
+     *
      * @param sheet
      * @return
      */
-    public static Map<Integer,Map<Integer, String>> readExcelSheetToMap(Sheet sheet) {
-        Map<Integer,Map<Integer, String>> sheetResult = new TreeMap<>();
+    public static Map<Integer, Map<Integer, String>> readExcelSheetToMap(Sheet sheet) {
+        Map<Integer, Map<Integer, String>> sheetResult = new TreeMap<>();
         new ExcelSheetMapReader(() -> sheetResult).read(sheet);
         return sheetResult;
     }

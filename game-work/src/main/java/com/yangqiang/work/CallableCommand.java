@@ -5,14 +5,14 @@
 package com.yangqiang.work;
 
 /**
- * 有返回值的任务
+ * 有返回值的指令
  *
  * @author 杨 强
  */
 @FunctionalInterface
-public interface CallableWork<T> extends Command {
+public interface CallableCommand<T> extends Command {
     /**
-     * 具体的任务
+     * 具体的逻辑
      */
     T call();
 

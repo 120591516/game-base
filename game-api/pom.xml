@@ -12,7 +12,47 @@
     <artifactId>game-api</artifactId>
     <version>1.0</version>
 
-    <dependencies>
+    <properties>
+        <guava.version>23.0</guava.version>
+        <protostuff.version>1.5.2</protostuff.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-api</artifactId>
+            <version>${protostuff.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <artifactId>protostuff-api</artifactId>
+                    <groupId>io.protostuff</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <artifactId>protostuff-api</artifactId>
+                    <groupId>io.protostuff</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 </project>
