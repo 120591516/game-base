@@ -13,7 +13,7 @@ import lombok.NonNull;
  */
 public interface IPool<T, R> {
     /**
-     * 根据id获取消息
+     * 根据id获取R
      *
      * @param id
      * @return

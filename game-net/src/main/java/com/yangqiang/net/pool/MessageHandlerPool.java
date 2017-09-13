@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月28日 11:02
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.net.netty;
+package com.yangqiang.net.pool;
 
 import com.yangqiang.net.IPool;
 import com.yangqiang.net.MessageCommand;
