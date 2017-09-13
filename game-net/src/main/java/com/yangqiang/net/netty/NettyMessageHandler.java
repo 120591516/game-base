@@ -35,21 +35,33 @@ public class NettyMessageHandler<T> extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (messageListener == null) {
+            return;
+        }
         messageListener.onMessage(getSession(ctx), (T) msg);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        if (sessionListener == null) {
+            return;
+        }
         sessionListener.onExceptionCaught(getSession(ctx), cause);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        if (sessionListener == null) {
+            return;
+        }
         sessionListener.onConnected(createSession(ctx));
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        if (sessionListener == null) {
+            return;
+        }
         sessionListener.onDisconnected(getSession(ctx));
     }
 

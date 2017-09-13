@@ -17,7 +17,10 @@ import com.yangqiang.net.netty.protobuf.DefaultProtoBufDecoder;
 import com.yangqiang.net.netty.protobuf.DefaultProtoBufEncoder;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 杨 强
@@ -40,10 +43,12 @@ public class Server implements MessageListener<MessageLite>, SessionListener<Net
 
         NettyServerBuilder builder = NettyServerBuilder.Builder();
         builder.port(30000).bossGroupCount(1).workGroupCount(4);
+        builder.handler("heart", () -> new IdleStateHandler(5, 0, 0, TimeUnit.SECONDS));
         builder.handler("frameDecoder", () -> new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
         builder.handler("protobufDecoder", () -> new DefaultProtoBufDecoder(inPool));
         builder.handler("frameEncoder", () -> new LengthFieldPrepender(4));
         builder.handler("protobufEncoder", () -> new DefaultProtoBufEncoder(outIPool));
+        builder.handler("hearHandler", () -> new HeartHandler());
         NettyMessageHandler messageHandler = new NettyMessageHandler(server, server);
         builder.handler("messageHanlder", () -> messageHandler);
 

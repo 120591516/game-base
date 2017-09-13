@@ -1,7 +1,8 @@
-package com.yangqiang.data; /**
+/**
  * 创建日期:  2017年09月01日 10:58
  * 创建作者:  杨 强  <281455776@qq.com>
  */
+package com.yangqiang.data;
 
 /**
  * 持久化类型
